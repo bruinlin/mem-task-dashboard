@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MEM 小组课程任务看板" />
+  <title>MEM 小组任务看板</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;--surface:#fff;--text:#18212f;--muted:#7a8496;--line:#e7ebf2;
+      --blue:#315efb;--blue-soft:#eef2ff;--purple:#7048d8;--purple-soft:#f2edff;
+      --green:#1c7c54;--green-soft:#eaf7ef;--amber:#a76608;--amber-soft:#fff4dd;
+      --red:#bf4650;--red-soft:#fff0f2;--shadow:0 18px 48px rgba(30,40,60,.07);--radius:22px
+    }
+    *{box-sizing:border-box} body{margin:0;color:var(--text);background:
+      radial-gradient(circle at 8% 0%,rgba(49,94,251,.08),transparent 28%),
+      radial-gradient(circle at 92% 0%,rgba(112,72,216,.06),transparent 24%),var(--bg);
+      font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,select{font:inherit}.app{width:min(1220px,calc(100% - 30px));margin:auto;padding:38px 0 54px}
+    .hero{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:22px}
+    .eyebrow{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--blue);margin-bottom:10px}
+    h1{margin:0;font-size:clamp(30px,5vw,46px);line-height:1.08;letter-spacing:-.045em}
+    .hero p{margin:12px 0 0;color:var(--muted);font-size:14px;line-height:1.7}
+    .hero-right{display:grid;gap:8px;justify-items:end}.today{text-align:right;color:var(--muted);font-size:13px;line-height:1.55}
+    .today strong{display:block;color:var(--text);font-size:17px}
+    .sync{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:11px;color:var(--muted)}
+    .sync-dot{width:7px;height:7px;border-radius:50%;background:#aab2c0}.sync.online .sync-dot{background:var(--green)}.sync.error .sync-dot{background:var(--red)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+    .stat{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:18px;padding:17px 18px;box-shadow:var(--shadow)}
+    .stat-label{font-size:12px;color:var(--muted);margin-bottom:7px}.stat-value{font-size:27px;font-weight:850;letter-spacing:-.035em}
+    .panel{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .panel-head{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:20px 22px 14px}
+    .panel-title{font-size:16px;font-weight:800;letter-spacing:-.02em}.panel-sub{font-size:12px;color:var(--muted)}
+    .timeline-panel{margin-bottom:18px;overflow:hidden}.timeline-wrap{padding:6px 18px 22px;overflow-x:auto}.timeline{min-width:860px}
+    .timeline-header{display:grid;grid-template-columns:210px 1fr;align-items:end;margin-bottom:8px}
+    .timeline-dates{display:grid;grid-template-columns:repeat(19,1fr);font-size:10px;color:var(--muted);text-align:center}
+    .timeline-row{display:grid;grid-template-columns:210px 1fr;align-items:center;min-height:62px;border-top:1px solid var(--line)}
+    .lane-label{padding-right:14px}.lane-label strong{display:block;font-size:13px;line-height:1.35}.lane-label span{display:block;margin-top:4px;font-size:11px;color:var(--muted)}
+    .lane{position:relative;height:34px;background:repeating-linear-gradient(to right,transparent 0,transparent calc(100%/19 - 1px),rgba(231,235,242,.9) calc(100%/19 - 1px),rgba(231,235,242,.9) calc(100%/19));border-radius:10px}
+    .bar{position:absolute;top:6px;height:22px;border-radius:999px;display:flex;align-items:center;padding:0 10px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden}
+    .bar.blue{background:var(--blue-soft);color:var(--blue);border:1px solid #dbe4ff}.bar.purple{background:var(--purple-soft);color:var(--purple);border:1px solid #e5dcff}.bar.green{background:var(--green-soft);color:var(--green);border:1px solid #d7efdf}
+    .milestone{position:absolute;top:4px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;transform:translateX(-50%);box-shadow:0 0 0 4px #fff}
+    .milestone.blue{background:var(--blue)}.milestone.purple{background:var(--purple)}.milestone.green{background:var(--green)}.milestone.amber{background:var(--amber)}
+    .timeline-note{margin-top:10px;font-size:11px;color:var(--muted)}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px;align-items:start}.filters{display:flex;gap:7px;flex-wrap:wrap}
+    .filter-btn{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:7px 10px;font-size:12px;cursor:pointer}
+    .filter-btn.active,.filter-btn:hover{background:var(--blue-soft);border-color:var(--blue);color:var(--blue)}
+    .group-list{padding:2px 12px 12px}.course-section-title{display:flex;align-items:center;gap:10px;padding:10px 6px 12px;font-size:13px;font-weight:850;color:#4f5b70}
+    .course-section-title:before{content:"";width:4px;height:18px;border-radius:99px;background:var(--blue)}
+    .task-group{border:1px solid var(--line);border-radius:18px;background:#fff;margin-bottom:14px;overflow:visible}
+    .group-header{display:grid;grid-template-columns:1fr auto;gap:16px;padding:18px;border-radius:18px 18px 0 0;background:linear-gradient(180deg,#fff,#fcfdff)}
+    .assignment-kicker{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:850;margin-bottom:8px}
+    .group-title{font-size:20px;font-weight:900;letter-spacing:-.025em;margin:0;line-height:1.4}.group-note{font-size:13px;color:var(--muted);line-height:1.6;margin-top:7px}
+    .group-ddl{text-align:right;min-width:116px}.group-ddl .label{font-size:11px;color:var(--muted);margin-bottom:4px}.group-ddl strong{font-size:17px}
+    .progress-wrap{padding:0 18px 16px}.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
+    .progress-track{height:7px;background:#edf0f5;border-radius:999px;overflow:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:999px}
+    .steps{border-top:1px solid var(--line)}.step{display:grid;grid-template-columns:34px minmax(0,1fr) 190px 132px;gap:12px;align-items:center;padding:13px 18px;border-top:1px solid var(--line);position:relative}
+    .step:first-child{border-top:0}.step-index{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#f2f4f8;color:#697386;font-size:11px;font-weight:800}
+    .step.done .step-index{background:var(--green-soft);color:var(--green)}.step-title{font-size:14px;font-weight:760;line-height:1.45}.step-output{font-size:12px;color:var(--muted);line-height:1.5;margin-top:3px}
+    .control-label{font-size:10px;color:var(--muted);margin-bottom:5px;font-weight:700}.owner-picker{position:relative}
+    .owner-button{width:100%;min-height:36px;text-align:left;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:10px;padding:8px 30px 8px 10px;font-size:12px;line-height:1.35;cursor:pointer;position:relative}
+    .owner-button:after{content:"▾";position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted)}
+    .owner-menu{display:none;position:absolute;z-index:30;top:calc(100% + 6px);left:0;width:220px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;box-shadow:0 16px 35px rgba(20,30,50,.14)}
+    .owner-picker.open .owner-menu{display:block}.owner-option{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;font-size:12px;cursor:pointer}.owner-option:hover{background:#f6f8fb}
+    .owner-option input{accent-color:var(--blue)}.owner-actions{display:flex;justify-content:flex-end;border-top:1px solid var(--line);margin-top:6px;padding-top:7px}.owner-close{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:6px 10px;font-size:11px;cursor:pointer}
+    .status-select{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 28px 8px 10px;font-size:12px;font-weight:750;cursor:pointer}
+    .status-select.todo{background:#f6f7f9;color:#687285}.status-select.doing{background:var(--amber-soft);color:var(--amber);border-color:#f0dfb7}.status-select.waiting{background:var(--blue-soft);color:var(--blue);border-color:#dce5ff}.status-select.done{background:var(--green-soft);color:var(--green);border-color:#d5eadc}
+    .step-date{font-size:11px;color:var(--muted);margin-top:5px;text-align:right}.side-stack{display:grid;gap:18px}.side-body{padding:0 20px 20px}
+    .next-card{padding:15px;border-radius:16px;background:linear-gradient(135deg,#1c2534,#34425c);color:#fff}.next-card .kicker{font-size:11px;letter-spacing:.08em;opacity:.65}.next-card .name{font-size:16px;font-weight:850;line-height:1.45;margin:8px 0 5px}.next-card .date{font-size:12px;opacity:.82}
+    .member-list{display:grid;gap:8px}.member{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);background:#fafbfc;border-radius:12px;font-size:13px}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:850}
+    .info{font-size:11px;color:var(--muted);line-height:1.65}.error-box{display:none;margin:0 12px 12px;padding:12px 14px;border-radius:12px;background:var(--red-soft);color:var(--red);font-size:12px;line-height:1.6}
+    footer{margin-top:18px;text-align:center;color:#99a1af;font-size:11px}
+    @media(max-width:980px){.layout{grid-template-columns:1fr}.hero{flex-direction:column;align-items:flex-start}.hero-right{justify-items:start}.today{text-align:left}}
+    @media(max-width:760px){.app{width:min(100% - 18px,1220px);padding-top:24px}.stats{grid-template-columns:repeat(2,1fr);gap:9px}.panel-head{flex-direction:column;align-items:flex-start}.group-header{grid-template-columns:1fr}.group-ddl{text-align:left}.step{grid-template-columns:32px 1fr}.owner-picker,.status-wrap{grid-column:2}.step-date{text-align:left}.owner-menu{width:min(260px,calc(100vw - 70px))}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">MEM · GROUP TASK DASHBOARD</div>
+      <h1>MEM 小组任务看板</h1>
+      <p>负责人和状态写入共享数据源。任何人刷新页面，读取的都是最新版本。</p>
+    </div>
+    <div class="hero-right">
+      <div class="today" id="today"></div>
+      <div class="sync" id="syncState"><span class="sync-dot"></span><span id="syncText">连接中</span></div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="stat-label">主任务</div><div class="stat-value" id="statGroups">0</div></div>
+    <div class="stat"><div class="stat-label">工作节点</div><div class="stat-value" id="statSteps">0</div></div>
+    <div class="stat"><div class="stat-label">进行中</div><div class="stat-value" id="statDoing">0</div></div>
+    <div class="stat"><div class="stat-label">已完成</div><div class="stat-value" id="statDone">0</div></div>
+  </section>
+
+  <section class="panel timeline-panel">
+    <div class="panel-head"><div><div class="panel-title">时间轴 · 关键节点</div><div class="panel-sub">9/23 → 10/11，一眼看清近期课程节奏</div></div></div>
+    <div class="timeline-wrap"><div class="timeline">
+      <div class="timeline-header"><div></div><div class="timeline-dates" id="timelineDates"></div></div>
+      <div class="timeline-row"><div class="lane-label"><strong>现代化 · 作业一：社会现象评论</strong><span>选题 → 资料 → PPT → 呈现</span></div><div class="lane" id="laneModern"></div></div>
+      <div class="timeline-row"><div class="lane-label"><strong>现代化 · 作业二：开放式讨论</strong><span>观点 → 结构 → 材料 → 陈述</span></div><div class="lane" id="laneDiscussion"></div></div>
+      <div class="timeline-row"><div class="lane-label"><strong>工程导论 · 第一批作业</strong><span>第 1–4 讲在线问题 + 案例分析</span></div><div class="lane" id="laneEngineering"></div></div>
+      <div class="timeline-note">● 圆点代表关键 DDL / 里程碑；长条代表持续推进阶段。</div>
+    </div></div>
+  </section>
+
+  <section class="layout">
+    <section class="panel">
+      <div class="panel-head"><div class="panel-title">任务明细</div><div class="filters" id="filters"></div></div>
+      <div class="error-box" id="errorBox"></div>
+      <div class="group-list" id="groupList"></div>
+    </section>
+    <aside class="side-stack">
+      <section class="panel"><div class="panel-head"><div class="panel-title">最近节点</div></div><div class="side-body"><div class="next-card" id="nextCard"></div></div></section>
+      <section class="panel"><div class="panel-head"><div class="panel-title">小组成员</div></div><div class="side-body"><div class="member-list" id="memberList"></div></div></section>
+      <section class="panel"><div class="panel-head"><div class="panel-title">同步状态</div></div><div class="side-body"><div class="info">修改负责人或任务状态后会直接写入共享数据库；其他组员刷新即可看到最新数据。页面保持打开时，也会自动接收更新。</div></div></section>
+    </aside>
+  </section>
+  <footer>MEM Group Dashboard · 2026</footer>
+</main>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const members=["周圣昌","廖璇","高森林","钟润超","王玺","史圣田"];
+const ownerOptions=["待分配","全员",...members];
+const statusOptions=["未开始","进行中","待汇总","已完成"];
+
+const taskGroups=[
+ {course:"中国式现代化的理论与实践",assignment:"作业一",title:"社会现象评论",finalDDLText:"10 / 03",note:"最终以 10–15 分钟 PPT 呈现，1–2 人主讲。",steps:[
+  {id:"m1",title:"个人选题提案",output:"每人提出 1 个社会现象选题，并附简要理由 / 可用案例方向。",owners:["全员"],date:"2026-09-23",dateText:"09 / 23",status:"进行中"},
+  {id:"m2",title:"选题筛选",output:"汇总全部提案，筛出 2–3 个候选选题。",owners:["周圣昌"],date:"2026-09-24",dateText:"09 / 24",status:"未开始"},
+  {id:"m3",title:"最终定题并报学委",output:"完成组内讨论，确定最终选题并提交学委。",owners:["全员"],date:"2026-09-28",dateText:"09 / 28",status:"未开始"},
+  {id:"m4",title:"基础资料收集",output:"整理新闻、数据、案例、政策 / 学术材料，保留来源。",owners:["待分配"],date:"2026-09-28",dateText:"09 / 28",status:"未开始"},
+  {id:"m5",title:"内容分析与逻辑整理",output:"形成“现象—原因—影响—分析 / 评价”的内容骨架。",owners:["待分配"],date:"2026-09-29",dateText:"09 / 29",status:"未开始"},
+  {id:"m6",title:"PPT 制作与整合",output:"统一逻辑、删减内容，完成可直接用于课堂呈现的 PPT。",owners:["周圣昌"],date:"2026-09-30",dateText:"09 / 30",status:"未开始"},
+  {id:"m7",title:"主讲准备",output:"确定 1–2 名主讲人，完成讲稿与时间控制。",owners:["待分配"],date:"2026-10-02",dateText:"10 / 02",status:"未开始"},
+  {id:"m8",title:"最终检查",output:"全组快速检查事实、逻辑、表达和时间长度。",owners:["全员"],date:"2026-10-02",dateText:"10 / 02",status:"未开始"}]},
+ {course:"中国式现代化的理论与实践",assignment:"作业二",title:"开放式讨论",finalDDLText:"10 / 03",note:"题目编号对应小组编号；每组约 20 分钟，形式不限。",steps:[
+  {id:"d1",title:"个人基础观点",output:"每人针对本组题目准备自己的基础观点与例子。",owners:["全员"],date:"2026-09-28",dateText:"09 / 28",status:"未开始"},
+  {id:"d2",title:"观点汇总与结构设计",output:"合并重复观点，确定 20 分钟陈述结构与呈现形式。",owners:["周圣昌"],date:"2026-09-30",dateText:"09 / 30",status:"未开始"},
+  {id:"d3",title:"材料制作",output:"根据最终形式完成 PPT / 视频 / 其他展示材料。",owners:["待分配"],date:"2026-10-01",dateText:"10 / 01",status:"未开始"},
+  {id:"d4",title:"课堂陈述准备",output:"确定发言顺序，完成简要演练与时间控制。",owners:["全员"],date:"2026-10-02",dateText:"10 / 02",status:"未开始"}]},
+ {course:"工程管理导论",assignment:"第一批作业",title:"第 1–4 讲在线问题 + 案例分析",finalDDLText:"10 / 11 当周",note:"第 1–4 讲合并为第一批作业；每个人都要完成个人内容。",steps:[
+  {id:"e1",title:"完成第一批个人作业",output:"一次性完成第 1–4 讲全部在线问题与案例分析，形成可直接用于后续小组汇总的完整个人材料。",owners:["全员"],date:"2026-10-11",dateText:"10 / 11 当周",status:"未开始"},
+  {id:"e2",title:"个人材料统一提交",output:"六名组员提交完整第一批材料，由周圣昌统一收集、检查和归档。",owners:["周圣昌"],date:"2026-10-11",dateText:"10 / 11 当周",status:"未开始"}]}
+];
+
+let db=null, activeCourse="全部", realtimeChannel=null, writeTimer=null;
+
+function setSync(type,text){
+ const el=document.getElementById("syncState"); el.className="sync "+type; document.getElementById("syncText").textContent=text;
+}
+function showError(msg){const el=document.getElementById("errorBox");el.style.display="block";el.textContent=msg}
+function clearError(){document.getElementById("errorBox").style.display="none"}
+
+const now=new Date(); now.setHours(0,0,0,0);
+document.getElementById("today").innerHTML=`<strong>${now.getFullYear()} / ${String(now.getMonth()+1).padStart(2,"0")} / ${String(now.getDate()).padStart(2,"0")}</strong>星期${["日","一","二","三","四","五","六"][now.getDay()]}`;
+document.getElementById("memberList").innerHTML=members.map((m,i)=>`<div class="member"><div class="avatar">${String(i+1).padStart(2,"0")}</div><div>${m}</div></div>`).join("");
+
+const courses=["全部",...new Set(taskGroups.map(g=>g.course))];
+document.getElementById("filters").innerHTML=courses.map((c,i)=>`<button class="filter-btn ${i===0?"active":""}" data-course="${c}">${c==="中国式现代化的理论与实践"?"中国式现代化":c}</button>`).join("");
+
+function allSteps(){return taskGroups.flatMap(g=>g.steps)}
+function findStep(id){return allSteps().find(s=>s.id===id)}
+function ownerText(v){return !v||!v.length?"待分配":v.join(" · ")}
+function statusClass(v){return {"未开始":"todo","进行中":"doing","待汇总":"waiting","已完成":"done"}[v]||"todo"}
+
+function updateSummary(){
+ const steps=allSteps();
+ document.getElementById("statGroups").textContent=taskGroups.length;
+ document.getElementById("statSteps").textContent=steps.length;
+ document.getElementById("statDoing").textContent=steps.filter(s=>s.status==="进行中").length;
+ document.getElementById("statDone").textContent=steps.filter(s=>s.status==="已完成").length;
+ const upcoming=steps.filter(s=>s.status!=="已完成").map(s=>({...s,d:new Date(`${s.date}T00:00:00`)})).filter(s=>s.d>=now).sort((a,b)=>a.d-b.d);
+ const n=upcoming[0];
+ document.getElementById("nextCard").innerHTML=n?`<div class="kicker">NEXT MILESTONE</div><div class="name">${n.title}</div><div class="date">${n.dateText}</div>`:`<div class="kicker">NEXT MILESTONE</div><div class="name">暂无待处理节点</div><div class="date">当前任务已处理完成</div>`;
+}
+
+function renderGroups(){
+ const groups=taskGroups.filter(g=>activeCourse==="全部"||g.course===activeCourse);
+ let lastCourse="";
+ document.getElementById("groupList").innerHTML=groups.map(group=>{
+  const done=group.steps.filter(s=>s.status==="已完成").length, progress=Math.round(done/group.steps.length*100);
+  const sec=group.course!==lastCourse?`<div class="course-section-title">${group.course}</div>`:""; lastCourse=group.course;
+  return `${sec}<article class="task-group"><div class="group-header"><div><div class="assignment-kicker">${group.assignment}</div><h2 class="group-title">${group.title}</h2><div class="group-note">${group.note}</div></div><div class="group-ddl"><div class="label">FINAL DDL</div><strong>${group.finalDDLText}</strong></div></div>
+  <div class="progress-wrap"><div class="progress-meta"><span>整体进度</span><span>${done} / ${group.steps.length}</span></div><div class="progress-track"><div class="progress-bar" style="width:${progress}%"></div></div></div>
+  <div class="steps">${group.steps.map((s,i)=>`<div class="step ${s.status==="已完成"?"done":""}" data-step-id="${s.id}">
+   <div class="step-index">${String(i+1).padStart(2,"0")}</div><div><div class="step-title">${s.title}</div><div class="step-output">${s.output}</div></div>
+   <div class="owner-picker"><div class="control-label">负责人</div><button class="owner-button">${ownerText(s.owners)}</button><div class="owner-menu">
+    ${ownerOptions.map(o=>`<label class="owner-option"><input type="checkbox" value="${o}" ${s.owners.includes(o)?"checked":""}><span>${o}</span></label>`).join("")}
+    <div class="owner-actions"><button class="owner-close" type="button">完成</button></div></div></div>
+   <div class="status-wrap"><div class="control-label">任务状态</div><select class="status-select ${statusClass(s.status)}">${statusOptions.map(o=>`<option ${s.status===o?"selected":""}>${o}</option>`).join("")}</select><div class="step-date">DDL：${s.dateText}</div></div>
+  </div>`).join("")}</div></article>`;
+ }).join("");
+ bindControls();
+}
+
+async function saveStep(step){
+ if(!db){showError("共享数据库尚未连接，当前修改无法同步。请先配置 config.js。");return}
+ setSync("","保存中");
+ const {error}=await db.from("task_state").upsert({task_id:step.id,owners:step.owners,status:step.status,updated_at:new Date().toISOString()},{onConflict:"task_id"});
+ if(error){setSync("error","保存失败");showError("保存失败："+error.message)}else{clearError();setSync("online","已同步")}
+}
+
+function bindControls(){
+ document.querySelectorAll(".owner-button").forEach(btn=>btn.onclick=e=>{e.stopPropagation();const p=btn.closest(".owner-picker");document.querySelectorAll(".owner-picker.open").forEach(x=>x!==p&&x.classList.remove("open"));p.classList.toggle("open")});
+ document.querySelectorAll(".owner-option input").forEach(inp=>inp.onchange=async()=>{
+  const row=inp.closest(".step"), step=findStep(row.dataset.stepId), picker=inp.closest(".owner-picker"), checks=[...picker.querySelectorAll("input")];
+  if(inp.checked&&(inp.value==="全员"||inp.value==="待分配")) checks.forEach(c=>{if(c!==inp)c.checked=false});
+  else if(inp.checked) checks.forEach(c=>{if(c.value==="全员"||c.value==="待分配")c.checked=false});
+  let selected=checks.filter(c=>c.checked).map(c=>c.value);
+  if(!selected.length){selected=["待分配"];checks.find(c=>c.value==="待分配").checked=true}
+  step.owners=selected; picker.querySelector(".owner-button").textContent=ownerText(selected); await saveStep(step);
+ });
+ document.querySelectorAll(".owner-close").forEach(b=>b.onclick=()=>b.closest(".owner-picker").classList.remove("open"));
+ document.querySelectorAll(".status-select").forEach(sel=>sel.onchange=async()=>{const step=findStep(sel.closest(".step").dataset.stepId);step.status=sel.value;renderGroups();updateSummary();await saveStep(step)});
+}
+document.addEventListener("click",()=>document.querySelectorAll(".owner-picker.open").forEach(p=>p.classList.remove("open")));
+document.getElementById("filters").onclick=e=>{const b=e.target.closest(".filter-btn");if(!b)return;activeCourse=b.dataset.course;document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderGroups()};
+
+async function initDatabase(){
+ const cfg=window.MEM_CONFIG||{};
+ if(!cfg.SUPABASE_URL||cfg.SUPABASE_URL.includes("PASTE_")||!cfg.SUPABASE_KEY||cfg.SUPABASE_KEY.includes("PASTE_")){
+  setSync("error","未配置共享数据"); showError("请先在 config.js 填入 Supabase Project URL 和 publishable key。"); return;
+ }
+ try{
+  db=supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_KEY,{auth:{persistSession:false}});
+  setSync("","读取数据");
+  const {data,error}=await db.from("task_state").select("task_id,owners,status,updated_at");
+  if(error) throw error;
+  const map=Object.fromEntries((data||[]).map(r=>[r.task_id,r]));
+  allSteps().forEach(s=>{if(map[s.id]){s.owners=map[s.id].owners;s.status=map[s.id].status}});
+  const missing=allSteps().filter(s=>!map[s.id]).map(s=>({task_id:s.id,owners:s.owners,status:s.status}));
+  if(missing.length){
+   const {error:seedErr}=await db.from("task_state").upsert(missing,{onConflict:"task_id",ignoreDuplicates:true});if(seedErr)throw seedErr;
+   const {data:latest,error:reloadErr}=await db.from("task_state").select("task_id,owners,status,updated_at");if(reloadErr)throw reloadErr;
+   latest.forEach(row=>{const s=findStep(row.task_id);if(s){s.owners=row.owners;s.status=row.status}});
+  }
+  renderGroups();updateSummary();clearError();setSync("online","已同步");
+
+  realtimeChannel=db.channel("mem-task-state")
+    .on("postgres_changes",{event:"*",schema:"public",table:"task_state"},payload=>{
+      const row=payload.new;if(!row||!row.task_id)return;
+      const s=findStep(row.task_id);if(!s)return;
+      s.owners=row.owners;s.status=row.status;renderGroups();updateSummary();setSync("online","实时更新");
+    })
+    .subscribe((status,err)=>{
+      if(status==="SUBSCRIBED")setSync("online","已同步");
+      if(status==="CHANNEL_ERROR"||status==="TIMED_OUT"){setSync("error","实时连接异常"); if(err)console.error(err)}
+    });
+ }catch(err){console.error(err);setSync("error","连接失败");showError("共享数据库连接失败："+(err.message||String(err)))}
+}
+
+// Timeline
+const start=new Date("2026-09-23T00:00:00"), end=new Date("2026-10-11T00:00:00"), totalDays=Math.round((end-start)/86400000)+1;
+let dates=[];for(let i=0;i<totalDays;i++){let d=new Date(start);d.setDate(start.getDate()+i);dates.push(`${d.getMonth()+1}/${d.getDate()}`)}
+document.getElementById("timelineDates").innerHTML=dates.map(d=>`<div>${d}</div>`).join("");
+function pct(ds){const d=new Date(ds+"T00:00:00");return(Math.round((d-start)/86400000)/(totalDays-1))*100}
+function addBar(id,a,b,label,cls){const e=document.createElement("div");e.className="bar "+cls;e.style.left=pct(a)+"%";e.style.width=Math.max(3,pct(b)-pct(a))+"%";e.textContent=label;document.getElementById(id).appendChild(e)}
+function addM(id,d,cls,title){const e=document.createElement("div");e.className="milestone "+cls;e.style.left=pct(d)+"%";e.title=title;document.getElementById(id).appendChild(e)}
+addBar("laneModern","2026-09-23","2026-09-30","选题 → 资料 → PPT","blue");addM("laneModern","2026-09-28","amber","报选题");addM("laneModern","2026-09-30","blue","PPT完成");addM("laneModern","2026-10-03","purple","课堂呈现");
+addBar("laneDiscussion","2026-09-28","2026-10-02","观点 → 材料 → 演练","purple");addM("laneDiscussion","2026-10-03","purple","开放式讨论");
+addBar("laneEngineering","2026-10-04","2026-10-11","第1–4讲第一批作业","green");addM("laneEngineering","2026-10-11","green","第一批DDL");
+
+renderGroups();updateSummary();initDatabase();
+</script>
+</body>
+</html>
