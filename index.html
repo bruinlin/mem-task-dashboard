@@ -52,7 +52,7 @@
     .group-header{display:grid;grid-template-columns:1fr auto;gap:16px;padding:18px;border-radius:18px 18px 0 0;background:linear-gradient(180deg,#fff,#fcfdff)}
     .assignment-kicker{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:850;margin-bottom:8px}
     .group-title{font-size:20px;font-weight:900;letter-spacing:-.025em;margin:0;line-height:1.4}.group-note{font-size:13px;color:var(--muted);line-height:1.6;margin-top:7px}
-    .group-ddl{text-align:right;min-width:116px}.group-ddl .label{font-size:11px;color:var(--muted);margin-bottom:4px}.group-ddl strong{font-size:17px}
+    .group-ddl{text-align:center;min-width:140px;align-self:start;padding:14px 18px;border-radius:14px;background:var(--purple-soft);border:1px solid #ded4f4;color:var(--purple)}.group-ddl .label{font-size:10px;font-weight:800;letter-spacing:.08em;margin-bottom:6px}.group-ddl strong{font-size:24px;line-height:1.4;font-weight:900}
     .progress-wrap{padding:0 18px 16px}.progress-meta{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px}
     .progress-track{height:7px;background:#edf0f5;border-radius:999px;overflow:hidden}.progress-bar{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:999px}
     .steps{border-top:1px solid var(--line)}.step{display:grid;grid-template-columns:34px minmax(0,1fr) 190px 132px;gap:12px;align-items:center;padding:13px 18px;border-top:1px solid var(--line);position:relative}
@@ -66,8 +66,9 @@
     .owner-option input{accent-color:var(--blue)}.owner-actions{display:flex;justify-content:flex-end;border-top:1px solid var(--line);margin-top:6px;padding-top:7px}.owner-close{border:0;background:var(--blue);color:#fff;border-radius:8px;padding:6px 10px;font-size:11px;cursor:pointer}
     .status-select{width:100%;border:1px solid var(--line);border-radius:10px;background:#fff;padding:8px 28px 8px 10px;font-size:12px;font-weight:750;cursor:pointer}
     .status-select.todo{background:#f6f7f9;color:#687285}.status-select.doing{background:var(--amber-soft);color:var(--amber);border-color:#f0dfb7}.status-select.waiting{background:var(--blue-soft);color:var(--blue);border-color:#dce5ff}.status-select.done{background:var(--green-soft);color:var(--green);border-color:#d5eadc}
-    .step-date{font-size:11px;color:var(--muted);margin-top:5px;text-align:right}.side-stack{display:grid;gap:18px}.side-body{padding:0 20px 20px}
-    .next-card{padding:15px;border-radius:16px;background:linear-gradient(135deg,#1c2534,#34425c);color:#fff}.next-card .kicker{font-size:11px;letter-spacing:.08em;opacity:.65}.next-card .name{font-size:16px;font-weight:850;line-height:1.45;margin:8px 0 5px}.next-card .date{font-size:12px;opacity:.82}
+    .step-date{grid-column:2 / -1;justify-self:start;min-width:126px;padding:9px 14px;border:1px solid #dce5ff;border-radius:12px;background:var(--blue-soft);color:var(--blue)}.step-date small{display:block;font-size:10px;letter-spacing:.08em;font-weight:800}.step-date strong{display:block;font-size:23px;line-height:1.4;font-weight:900;white-space:nowrap}.step-date.done{background:var(--green-soft);color:var(--green);border-color:#d5eadc}.step-date.soon{background:var(--amber-soft);color:var(--amber);border-color:#f0dfb7}.step-date.overdue{background:var(--red-soft);color:var(--red);border-color:#f0cdd0}.side-stack{display:grid;gap:18px}.side-body{padding:0 20px 20px}
+    .next-card{padding:15px;border-radius:16px;background:linear-gradient(135deg,#1c2534,#34425c);color:#fff}.next-card .kicker{font-size:11px;letter-spacing:.08em;opacity:.65}.next-card .name{font-size:16px;font-weight:850;line-height:1.45;margin:8px 0 5px}.next-card .date{font-size:28px;font-weight:900;line-height:1.5;margin:10px 0}.next-card .course{font-size:12px;line-height:1.6;opacity:.8}
+    [hidden]{display:none!important}.notice-panel{margin-bottom:18px;padding:20px 22px;background:#fffdf3;border-left:5px solid #d2a63e}.notice-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.notice-title{margin:0;font-size:20px;font-weight:900}.notice-kicker{font-size:10px;color:var(--amber);letter-spacing:.12em;margin-top:4px;font-weight:800}.notice-body{white-space:pre-wrap;overflow-wrap:anywhere;font-size:16px;line-height:1.8;margin:16px 0 0}.notice-panel button{border:1px solid var(--line);border-radius:10px;padding:10px 16px;min-height:44px;background:#fff;cursor:pointer;font:inherit}.notice-panel button:disabled{opacity:.55;cursor:wait}.notice-panel .notice-save{background:var(--blue);color:#fff;border-color:var(--blue)}.notice-editor{margin-top:16px}.notice-editor textarea{display:block;width:100%;min-height:160px;resize:vertical;padding:12px;border:1px solid #ccd6ea;border-radius:12px;font:inherit;font-size:16px;line-height:1.7}.notice-actions{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}.notice-feedback{font-size:12px;color:var(--muted);line-height:1.6;margin-top:10px}.notice-feedback.error{color:var(--red)}
     .member-list{display:grid;gap:8px}.member{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);background:#fafbfc;border-radius:12px;font-size:13px}.avatar{width:29px;height:29px;border-radius:50%;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue);font-size:11px;font-weight:850}
     .info{font-size:11px;color:var(--muted);line-height:1.65}.error-box{display:none;margin:0 12px 12px;padding:12px 14px;border-radius:12px;background:var(--red-soft);color:var(--red);font-size:12px;line-height:1.6}
     footer{margin-top:18px;text-align:center;color:#99a1af;font-size:11px}
@@ -94,6 +95,18 @@
     <div class="stat"><div class="stat-label">工作节点</div><div class="stat-value" id="statSteps">0</div></div>
     <div class="stat"><div class="stat-label">进行中</div><div class="stat-value" id="statDoing">0</div></div>
     <div class="stat"><div class="stat-label">已完成</div><div class="stat-value" id="statDone">0</div></div>
+  </section>
+
+  <section class="panel notice-panel" aria-labelledby="noticeTitle">
+    <div class="notice-head"><div><h2 class="notice-title" id="noticeTitle">重要留言</h2><div class="notice-kicker">IMPORTANT NOTICE</div></div><button id="noticeEdit" type="button" disabled>编辑</button></div>
+    <div class="notice-body" id="noticeBody">正在读取留言…</div>
+    <div class="notice-editor" id="noticeEditor" hidden>
+      <label for="noticeInput" class="control-label">留言正文（最多 10000 字符）</label>
+      <textarea id="noticeInput" maxlength="10000"></textarea>
+      <div class="notice-actions"><button id="noticeSave" class="notice-save" type="button">保存</button><button id="noticeCancel" type="button">取消</button></div>
+    </div>
+    <div id="noticeFeedback" class="notice-feedback" role="status" aria-live="polite"></div>
+    <button id="noticeRetry" type="button" hidden>重试读取留言</button>
   </section>
 
   <section class="panel timeline-panel">
@@ -124,6 +137,7 @@
 
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="notice.js"></script>
 <script>
 const members=["周圣昌","廖璇","高森林","钟润超","王玺","史圣田"];
 const ownerOptions=["待分配","全员",...members];
@@ -136,9 +150,10 @@ const taskGroups=[
   {id:"m5",title:"内容分析与逻辑整理",output:"基于已有资料形成完整内容框架，明确核心观点、论据和案例之间的逻辑关系，为 PPT 制作提供可直接使用的内容。",owners:["高森林"],date:"2026-09-27",dateText:"09 / 27",status:"未开始"},
   {id:"m6",title:"PPT 初版",output:"根据确定的内容框架完成完整 PPT 初版，包括页面结构、主要文字、核心数据 / 案例和整体叙事逻辑。",owners:["周圣昌"],date:"2026-09-29",dateText:"09 / 29",status:"未开始"},
   {id:"m8",title:"PPT 终版",output:"完成 PPT 最终修改，检查事实、数据、逻辑、文字、视觉和 10–15 分钟展示时长，形成可直接用于课堂展示的终版。",owners:["周圣昌","廖璇","高森林"],date:"2026-09-30",dateText:"09 / 30",status:"未开始"}]},
- {course:"中国式现代化的理论与实践",assignment:"作业二",title:"开放式讨论",finalDDLText:"10 / 03",note:"题目：产学研如何深度融合。主线团队：钟润超 · 王玺 · 史圣田。全员先提供基础观点，之后由主线团队负责汇总、展示材料和最终准备。",steps:[
-  {id:"d1",title:"每个人准备基础观点",output:"每人围绕“产学研如何深度融合”准备自己的基础观点、理由和至少一个可用案例 / 现实问题。",owners:["全员"],date:"2026-09-24",dateText:"09 / 24",status:"未开始"},
-  {id:"d2",title:"观点汇总与结构整理",output:"汇总全员观点，合并重复内容，确定约 20 分钟开放式讨论的完整逻辑结构、主要观点及各部分顺序。",owners:["钟润超"],date:"2026-09-27",dateText:"09 / 27",status:"未开始"},
+ {course:"中国式现代化的理论与实践",assignment:"作业二",title:"开放式讨论",finalDDLText:"10 / 03",note:"题目：产学研如何深度融合。主线团队：钟润超 · 王玺 · 史圣田。框架与方向已敲定，全员补充观点与案例，主线团队负责汇总、展示材料和最终准备。",steps:[
+  {id:"d1",title:"框架与方向敲定",output:"完成开放式讨论的整体方向、主要观点范围和内容框架确认，明确后续资料和展示材料的制作方向。",owners:["钟润超","王玺","史圣田"],date:"2026-09-22",dateText:"09 / 22",status:"已完成"},
+  {id:"d1b",title:"观点与案例补充",output:"根据 9/22 已确定的框架，每人补充可用观点、案例、数据或现实问题，为后续汇总提供内容。",owners:["全员"],date:"2026-09-24",dateText:"09 / 24",status:"未开始"},
+  {id:"d2",title:"观点汇总与内容整理",output:"汇总全员观点，合并重复内容，确定约 20 分钟开放式讨论的完整逻辑结构、主要观点及各部分顺序。",owners:["钟润超"],date:"2026-09-27",dateText:"09 / 27",status:"未开始"},
   {id:"d3",title:"展示材料初版",output:"根据最终讨论结构完成课堂展示材料初版，包括 PPT / 视觉材料 / 案例呈现等，并保证内容可以支撑约 20 分钟陈述。",owners:["王玺","史圣田"],date:"2026-09-30",dateText:"09 / 30",status:"未开始"},
   {id:"d4",title:"最后准备",output:"完成展示材料最终检查、发言分配、表达顺序和时间控制，确保 10/3 可以直接用于课堂开放式讨论。",owners:["钟润超","王玺","史圣田"],date:"2026-10-02",dateText:"10 / 02",status:"未开始"}]},
  {course:"工程管理导论",assignment:"第一批作业",title:"第 1–4 讲在线问题 + 案例分析",finalDDLText:"10 / 11 当周",note:"第 1–4 讲合并为第一批作业；每个人都要完成个人内容。",steps:[
@@ -156,13 +171,33 @@ let db=null, activeCourse="全部", realtimeChannel=null, databaseReady=false, p
 async function migrateOwners(rows){
  if(rows.some(r=>r.task_id===ownerMigrationId))return;
  for(const row of rows){
-  const old=oldDefaultOwners[row.task_id], next=newDefaultOwners[row.task_id];
+  const old=oldDefaultOwners[row.task_id], next=row.task_id==="d1"?["全员"]:newDefaultOwners[row.task_id];
   if(!old||JSON.stringify(row.owners)!==JSON.stringify(old)||JSON.stringify(old)===JSON.stringify(next))continue;
   const {error}=await db.from("task_state").update({owners:next,updated_at:new Date().toISOString()})
    .eq("task_id",row.task_id).eq("owners","{"+old.map(o=>JSON.stringify(o)).join(",")+"}").eq("updated_at",row.updated_at);
   if(error)throw error;
  }
  const {error}=await db.from("task_state").upsert({task_id:ownerMigrationId,owners:[],status:"已完成"},{onConflict:"task_id",ignoreDuplicates:true});
+ if(error)throw error;
+}
+
+const meetingMigrationId="__migration_discussion_meeting_20260921_v1";
+async function migrateDiscussionMeeting(){
+ const {data:rows,error:readError}=await db.from("task_state").select("task_id,owners,status,updated_at");
+ if(readError)throw readError;
+ if(rows.some(r=>r.task_id===meetingMigrationId))return;
+ const row=rows.find(r=>r.task_id==="d1");
+ const values={owners:["钟润超","王玺","史圣田"],status:"已完成",updated_at:new Date().toISOString()};
+ if(row){
+  const {data:changed,error}=await db.from("task_state").update(values).eq("task_id","d1").eq("updated_at",row.updated_at).select("task_id");
+  if(error)throw error;
+  if(!changed.length)throw new Error("会议节点刚被更新，请刷新重试，避免覆盖同时发生的修改。");
+ }else{
+  const {data:added,error}=await db.from("task_state").upsert({task_id:"d1",...values},{onConflict:"task_id",ignoreDuplicates:true}).select("task_id");
+  if(error)throw error;
+  if(!added.length)throw new Error("会议节点刚被创建，请刷新重试。");
+ }
+ const {error}=await db.from("task_state").upsert({task_id:meetingMigrationId,owners:[],status:"已完成"},{onConflict:"task_id",ignoreDuplicates:true});
  if(error)throw error;
 }
 
@@ -183,6 +218,11 @@ function allSteps(){return taskGroups.flatMap(g=>g.steps)}
 function findStep(id){return allSteps().find(s=>s.id===id)}
 function ownerText(v){return ownerOptions.filter(o=>(v||[]).includes(o)).join(" · ")||"待分配"}
 function statusClass(v){return {"未开始":"todo","进行中":"doing","待汇总":"waiting","已完成":"done"}[v]||"todo"}
+function deadlineClass(step){
+ if(step.status==="已完成")return "done";
+ const days=Math.round((new Date(step.date+"T00:00:00")-now)/86400000);
+ return days<0?"overdue":days<=3?"soon":"later";
+}
 
 function updateSummary(){
  const steps=allSteps();
@@ -190,9 +230,9 @@ function updateSummary(){
  document.getElementById("statSteps").textContent=steps.length;
  document.getElementById("statDoing").textContent=steps.filter(s=>s.status==="进行中").length;
  document.getElementById("statDone").textContent=steps.filter(s=>s.status==="已完成").length;
- const upcoming=steps.filter(s=>s.status!=="已完成").map(s=>({...s,d:new Date(`${s.date}T00:00:00`)})).filter(s=>s.d>=now).sort((a,b)=>a.d-b.d);
+ const upcoming=taskGroups.flatMap(g=>g.steps.map(s=>({...s,courseLabel:(g.course==="中国式现代化的理论与实践"?"中国式现代化":g.course)+" · "+g.assignment}))).filter(s=>s.status!=="已完成").map(s=>({...s,d:new Date(`${s.date}T00:00:00`)})).sort((a,b)=>a.d-b.d);
  const n=upcoming[0];
- document.getElementById("nextCard").innerHTML=n?`<div class="kicker">NEXT MILESTONE</div><div class="name">${n.title}</div><div class="date">${n.dateText}</div>`:`<div class="kicker">NEXT MILESTONE</div><div class="name">暂无待处理节点</div><div class="date">当前任务已处理完成</div>`;
+ document.getElementById("nextCard").innerHTML=n?`<div class="kicker">${n.d<now?"OVERDUE · 逾期待处理":"NEXT MILESTONE"}</div><div class="name">${n.title}</div><div class="date">${n.dateText}</div><div class="course">《${n.courseLabel}》</div>`:`<div class="kicker">NEXT MILESTONE</div><div class="name">暂无待处理节点</div><div class="course">当前任务已处理完成</div>`;
 }
 
 function renderGroups(){
@@ -209,7 +249,8 @@ function renderGroups(){
    <div class="owner-picker"><div class="control-label">负责人</div><button class="owner-button" ${databaseReady?"":"disabled"}>${ownerText(s.owners)}</button><div class="owner-menu">
     ${ownerOptions.map(o=>`<label class="owner-option"><input type="checkbox" value="${o}" ${s.owners.includes(o)?"checked":""}><span>${o}</span></label>`).join("")}
     <div class="owner-actions"><button class="owner-close" type="button">完成</button></div></div></div>
-   <div class="status-wrap"><div class="control-label">任务状态</div><select class="status-select ${statusClass(s.status)}" ${databaseReady?"":"disabled"}>${statusOptions.map(o=>`<option ${s.status===o?"selected":""}>${o}</option>`).join("")}</select><div class="step-date">DDL：${s.dateText}</div></div>
+   <div class="status-wrap"><div class="control-label">任务状态</div><select class="status-select ${statusClass(s.status)}" ${databaseReady?"":"disabled"}>${statusOptions.map(o=>`<option ${s.status===o?"selected":""}>${o}</option>`).join("")}</select></div>
+   <div class="step-date ${deadlineClass(s)}"><small>DDL${deadlineClass(s)==="overdue"?" · 已逾期":deadlineClass(s)==="soon"?" · 临近截止":""}</small><strong>${s.dateText}</strong></div>
   </div>`).join("")}</div></article>`;
  }).join("");
  bindControls();
@@ -256,6 +297,7 @@ async function initDatabase(){
   if(error) throw error;
   const map=Object.fromEntries((data||[]).map(r=>[r.task_id,r]));
   await migrateOwners(data||[]);
+  await migrateDiscussionMeeting();
   const missing=allSteps().filter(s=>!map[s.id]).map(s=>({task_id:s.id,owners:s.owners,status:s.status}));
   if(missing.length){
    const {error:seedErr}=await db.from("task_state").upsert(missing,{onConflict:"task_id",ignoreDuplicates:true});if(seedErr)throw seedErr;
@@ -275,6 +317,7 @@ async function initDatabase(){
       if(status==="SUBSCRIBED")setSync("online","已同步");
       if(status==="CHANNEL_ERROR"||status==="TIMED_OUT"){setSync("error","实时连接异常"); if(err)console.error(err)}
     });
+  await initNotice();
  }catch(err){console.error(err);setSync("error","连接失败");showError("共享数据库连接失败："+(err.message||String(err)))}
 }
 
@@ -289,8 +332,8 @@ function addM(id,d,cls,title){const e=document.createElement("div");e.className=
 addBar("laneModern","2026-09-22","2026-09-30","选题 → 资料 → 内容 → PPT","blue");
 [["2026-09-22","选题并定题"],["2026-09-24","资料完成"],["2026-09-27","逻辑整理完成"],["2026-09-29","PPT 初版"],["2026-09-30","PPT 终版"]].forEach(([d,t])=>addM("laneModern",d,"blue node",t));
 addM("laneModern","2026-10-01","purple","作业一 DDL");
-addBar("laneDiscussion","2026-09-24","2026-10-02","观点 → 汇总 → 初版 → 准备","purple");
-[["2026-09-24","基础观点"],["2026-09-27","内容汇总"],["2026-09-30","展示材料初版"],["2026-10-02","最后准备"]].forEach(([d,t])=>addM("laneDiscussion",d,"purple node",t));
+addBar("laneDiscussion","2026-09-22","2026-10-02","框架 → 补充 → 汇总 → 初版 → 准备","purple");
+[["2026-09-22","框架与方向敲定"],["2026-09-24","观点与案例补充"],["2026-09-27","内容汇总"],["2026-09-30","展示材料初版"],["2026-10-02","最后准备"]].forEach(([d,t])=>addM("laneDiscussion",d,"purple node",t));
 addM("laneDiscussion","2026-10-03","purple","开放式讨论");
 addBar("laneEngineering","2026-10-04","2026-10-11","第1–4讲第一批作业","green");addM("laneEngineering","2026-10-11","green","第一批DDL");
 
