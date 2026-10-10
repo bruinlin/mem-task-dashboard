@@ -52,7 +52,8 @@ async function offline(){
  assert.equal(doc.querySelector('#statSteps').textContent,'13');
  assert(defaults.slice(0,10).every(s=>s.status==='已完成'));
  assert(defaults.slice(10).every(s=>s.status==='未开始'));
- assert.equal(parseFloat(doc.querySelector('#laneDiscussion .bar').style.left),0.5/33*100);
+ assert.deepEqual([...doc.querySelectorAll('.timeline-row .lane')].map(e=>e.id),['laneEngineering','laneEconomics']);
+ assert(doc.querySelector('#laneEngineering .milestone').title.includes('10/11 当周'));
  assert.equal(doc.querySelector('.course-archive').open,false);
  assert(doc.querySelector('#laneEconomics .milestone').title.includes('2026-10-24'));
  assert.equal(doc.querySelectorAll('.submission-check').length,6);

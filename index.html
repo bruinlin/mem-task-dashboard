@@ -115,8 +115,6 @@
     <div class="panel-head"><div><div class="panel-title">时间轴 · 关键节点</div><div class="panel-sub">9/22 → 10/24，一眼看清近期课程节奏</div></div></div>
     <div class="timeline-wrap"><div class="timeline">
       <div class="timeline-header"><div></div><div class="timeline-dates" id="timelineDates"></div></div>
-      <div class="timeline-row"><div class="lane-label"><strong>现代化 · 作业一：社会现象评论</strong><span>选题 → 资料 → 内容 → PPT</span></div><div class="lane" id="laneModern"></div></div>
-      <div class="timeline-row"><div class="lane-label"><strong>现代化 · 作业二：开放式讨论</strong><span>观点 → 汇总 → 初版 → 准备</span></div><div class="lane" id="laneDiscussion"></div></div>
       <div class="timeline-row"><div class="lane-label"><strong>工程导论 · 第一批作业</strong><span>第 1–4 讲在线问题 + 案例分析</span></div><div class="lane" id="laneEngineering"></div></div>
       <div class="timeline-row"><div class="lane-label"><strong>工程经济学 · 手写作业</strong><span>5 个习题 + 3 个案例，上课时交</span></div><div class="lane" id="laneEconomics"></div></div>
       <div class="timeline-note">● 圆点代表关键 DDL / 里程碑；长条代表持续推进阶段。</div>
@@ -386,13 +384,7 @@ document.getElementById("timelineDates").innerHTML=dates.map(d=>`<div>${d}</div>
 function pct(ds){const d=new Date(ds+"T00:00:00");return((Math.round((d-start)/86400000)+.5)/totalDays)*100}
 function addBar(id,a,b,label,cls){const e=document.createElement("div");e.className="bar "+cls;e.style.left=pct(a)+"%";e.style.width=Math.max(3,pct(b)-pct(a))+"%";e.textContent=label;document.getElementById(id).appendChild(e)}
 function addM(id,d,cls,title){const e=document.createElement("div");e.className="milestone "+cls;e.style.left=pct(d)+"%";e.title=d+" · "+title;e.setAttribute("aria-label",e.title);document.getElementById(id).appendChild(e)}
-addBar("laneModern","2026-09-22","2026-09-30","选题 → 资料 → 内容 → PPT","blue");
-[["2026-09-22","选题并定题"],["2026-09-24","资料完成"],["2026-09-27","逻辑整理完成"],["2026-09-29","PPT 初版"],["2026-09-30","PPT 终版"]].forEach(([d,t])=>addM("laneModern",d,"blue node",t));
-addM("laneModern","2026-10-01","purple","作业一 DDL");
-addBar("laneDiscussion","2026-09-22","2026-10-02","框架 → 补充 → 汇总 → 初版 → 准备","purple");
-[["2026-09-22","框架与方向敲定"],["2026-09-24","观点与案例补充"],["2026-09-27","内容汇总"],["2026-09-30","展示材料初版"],["2026-10-02","最后准备"]].forEach(([d,t])=>addM("laneDiscussion",d,"purple node",t));
-addM("laneDiscussion","2026-10-03","purple","开放式讨论");
-addBar("laneEngineering","2026-10-04","2026-10-11","第1–4讲第一批作业","green");addM("laneEngineering","2026-10-11","green","第一批DDL");
+addBar("laneEngineering","2026-10-04","2026-10-11","第1–4讲第一批作业","green");addM("laneEngineering","2026-10-11","green","第一批作业 · 10/11 当周");
 
 addM("laneEconomics","2026-10-24","amber","手写作业：5 个习题 + 3 个案例，上课时交");
 
