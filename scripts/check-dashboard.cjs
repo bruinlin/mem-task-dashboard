@@ -45,22 +45,22 @@ function mockDb(initial){
 async function offline(){
  const p=page(), {run,doc,w}=p;
  const defaults=clone(run('allSteps()'));
- assert.equal(defaults.length,13);assert.deepEqual(defaults.map(s=>s.id),['m1','m4','m5','m6','m8','d1','d1b','d2','d3','d4','e1','e2','ec1']);
- assert.equal(doc.querySelectorAll('#timelineDates > div').length,33);
- assert.equal(run('pct("2026-09-22")'),0.5/33*100);assert.equal(run('pct("2026-10-24")'),32.5/33*100);
- assert.equal(doc.querySelector('#statGroups').textContent,'4');
- assert.equal(doc.querySelector('#statSteps').textContent,'13');
+ assert.equal(defaults.length,17);assert.deepEqual(defaults.map(s=>s.id),['m1','m4','m5','m6','m8','d1','d1b','d2','d3','d4','e1','e2','ec1','m_essay_500_20261106','e_final_electronic_20261108','e_final_paper_20261121','ec_feasibility_20261121']);
+ assert.equal(doc.querySelectorAll('#timelineDates > div').length,21);
+ assert.equal(run('pct("2026-11-01")'),0.5/21*100);assert.equal(run('pct("2026-11-21")'),20.5/21*100);
+ assert.equal(doc.querySelector('#statGroups').textContent,'7');
+ assert.equal(doc.querySelector('#statSteps').textContent,'17');
  assert(defaults.slice(0,10).every(s=>s.status==='已完成'));
  assert(defaults.slice(10).every(s=>s.status==='未开始'));
- assert.deepEqual([...doc.querySelectorAll('.timeline-row .lane')].map(e=>e.id),['laneEngineering','laneEconomics']);
- assert(doc.querySelector('#laneEngineering .milestone').title.includes('10/11 当周'));
+ assert.deepEqual([...doc.querySelectorAll('.timeline-row .lane')].map(e=>e.id),['laneModernization','laneEngineering','laneEconomics']);
+ assert(doc.querySelector('#laneEngineering .milestone').title.includes('电子版'));
  assert.equal(doc.querySelector('.course-archive').open,false);
- assert(doc.querySelector('#laneEconomics .milestone').title.includes('2026-10-24'));
+ assert(doc.querySelector('#laneEconomics .milestone').title.includes('2026-11-21'));
  assert.equal(doc.querySelectorAll('.submission-check').length,6);
  assert.equal(doc.querySelectorAll('.submission-check:checked').length,4);
  assert.deepEqual([...doc.querySelectorAll('.submission-table tbody th')].map(e=>e.textContent),['廖璇','高森林','王玺','史圣田','钟润超','周圣昌']);
- assert.equal(defaults.at(-1).date,'2026-10-24');
- assert.equal(doc.querySelectorAll('.step-date strong').length,13);
+ assert.equal(defaults.at(-1).date,'2026-11-21');
+ assert.equal(doc.querySelectorAll('.step-date strong').length,17);
  run('now.setTime(new Date("2026-09-21T00:00:00").getTime())');
  assert.equal(run('deadlineClass({date:"2026-09-20",status:"未开始"})'),'overdue');
  assert.equal(run('deadlineClass({date:"2026-09-20",status:"已完成"})'),'done');
@@ -82,13 +82,14 @@ async function offline(){
  state.rows.find(r=>r.task_id==='m4').owners=['待分配'];
  const writes=state.writes;w.snapshot=clone(state.rows);await run('migrateOwners(snapshot)');assert.equal(state.writes,writes);
  w.MEM_CONFIG={SUPABASE_URL:'https://example.test',SUPABASE_KEY:'test'};w.supabase={createClient:()=>db};
- await run('initDatabase()');assert.equal(doc.querySelector('#statDoing').textContent,'3');
+ await run('migrateDiscussionMeeting()');await run('migrateModernizationCompletion()');
+ await run('initDatabase()');assert.equal(doc.querySelector('#statDoing').textContent,'7');
  assert.equal(doc.querySelector('#statDone').textContent,'10');
  assert.deepEqual(state.rows.find(r=>r.task_id==='d1').owners,['钟润超','王玺','史圣田']);
  assert.equal(state.rows.find(r=>r.task_id==='d1').status,'已完成');
  const meetingWrites=state.writes;await run('migrateDiscussionMeeting()');assert.equal(state.writes,meetingWrites);
  run('now.setTime(new Date("2026-09-20T00:00:00").getTime());updateSummary()');
- assert(doc.querySelector('#nextCard').textContent.includes('10 / 11'));
+ assert(doc.querySelector('#nextCard').textContent.includes('11 月 6 号前'));
  const btn=doc.querySelector('[data-step-id="m8"] .owner-button');btn.click();
  let picker=doc.querySelector('[data-step-id="m8"] .owner-picker');
  assert(picker.classList.contains('open'));
@@ -120,7 +121,7 @@ async function offline(){
  const failed=page(), failing=mockDb(rows);failing.state.fail=true;failed.w.testDb=failing.db;failed.w.snapshot=rows;failed.run('db=testDb');
  await assert.rejects(failed.run('migrateOwners(snapshot)'));assert(!failing.state.rows.some(r=>r.task_id.startsWith('__migration')));
  failed.dom.window.close();p.dom.window.close();
- console.log('PASS: syntax, 13 tasks/4 groups/33 dates, collapsed archive/toggle preservation, submission defaults/save/rollback/realtime/stat isolation, deadline colors, migrations/CAS/once-only/failure, owner controls, summaries and realtime DOM updates.');
+ console.log('PASS: syntax, 17 tasks/7 groups/21 dates, collapsed archive/toggle preservation, submission defaults/save/rollback/realtime/stat isolation, deadline colors, migrations/CAS/once-only/failure, owner controls, summaries and realtime DOM updates.');
 }
 async function noticeTests(){
  const p=page(),{run,w,doc}=p,{db,state}=mockDb([]);w.testDb=db;run('db=testDb');
@@ -148,47 +149,18 @@ async function noticeTests(){
  state.failMeta=true;await run('initNotice()');assert.equal(doc.querySelector('#noticeEdit').disabled,true);
  assert.equal(doc.querySelector('#noticeRetry').hidden,false);
  const missing=page();missing.w.testDb=db;missing.w.MEM_CONFIG={SUPABASE_URL:'https://example.test',SUPABASE_KEY:'test'};missing.w.supabase={createClient:()=>db};
- await missing.run('initDatabase()');assert.equal(missing.run('databaseReady'),true);assert.equal(missing.doc.querySelector('#statSteps').textContent,'13');
+ await missing.run('initDatabase()');assert.equal(missing.run('databaseReady'),true);assert.equal(missing.doc.querySelector('#statSteps').textContent,'17');
  p.dom.window.close();other.dom.window.close();missing.dom.window.close();
  console.log('PASS: notice editing/cancel/save, 1200+ characters/newlines/plain text, reload/second-page, realtime/draft preservation, conflict/network errors, empty notice, missing-table task isolation.');
 }
 async function live(){
- const p=page(),{w,run,doc}=p;
- Object.assign(w,{fetch,Headers,Request,Response,WebSocket,AbortController,TextEncoder,TextDecoder});
- w.eval(fs.readFileSync('config.js','utf8'));
- const cfg=w.MEM_CONFIG;
- async function rows(){const r=await fetch(cfg.SUPABASE_URL+'/rest/v1/task_state?select=*',{headers:{apikey:cfg.SUPABASE_KEY}});assert(r.ok);return r.json()}
- const before=await rows();fs.mkdirSync('.verification',{recursive:true});fs.writeFileSync('.verification/before-dashboard-20261010.json',JSON.stringify(before,null,2));
- const defaults=clone(run('newDefaultOwners')),old=clone(run('oldDefaultOwners')),marker=run('ownerMigrationId');
- const sdk=await fetch('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2');assert(sdk.ok);const sdkCode=await sdk.text();w.eval(sdkCode);
- await run('initDatabase()');assert.equal(doc.querySelector('#errorBox').style.display,'none',doc.querySelector('#errorBox').textContent);
- const after=await rows();assert(after.some(r=>r.task_id===marker));
- for(const prev of before){const next=after.find(r=>r.task_id===prev.task_id);assert(next);
-  if(prev.task_id==='d1'&&!before.some(r=>r.task_id===run('meetingMigrationId'))){assert.equal(next.status,'已完成');assert.deepEqual(next.owners,['钟润超','王玺','史圣田']);continue}
-  const modernizationIds=['m1','m2','m3','m4','m5','m6','m7','m8','d1','d1b','d2','d3','d4'];
-  const completing=modernizationIds.includes(prev.task_id)&&!before.some(r=>r.task_id===run('modernizationCompletionId'));
-  assert.equal(next.status,completing?'已完成':prev.status);
-  const expected=!before.some(r=>r.task_id===marker)&&old[prev.task_id]&&JSON.stringify(prev.owners)===JSON.stringify(old[prev.task_id])?defaults[prev.task_id]:prev.owners;
-  assert.deepEqual(next.owners,expected,prev.task_id);
- }
- let event=false;const ch=run('db.channel("mem-schedule-verification")');
- ch.on('postgres_changes',{event:'UPDATE',schema:'public',table:'task_state'},()=>{event=true});
- await new Promise((resolve,reject)=>{const t=setTimeout(()=>reject(Error('Realtime timeout')),20000);ch.subscribe(s=>{if(s==='SUBSCRIBED'){clearTimeout(t);resolve()}})});
- // Same-value conditional write tests the real save transport without replacing a concurrent edit.
- const original=after.find(r=>r.task_id==='m1');
- w.checkRow=original;
- const result=await run('db.from("task_state").update({owners:checkRow.owners,status:checkRow.status,updated_at:new Date().toISOString()}).eq("task_id","m1").eq("updated_at",checkRow.updated_at).select()');
- assert.equal(result.error,null);assert.equal(result.data.length,1);
- for(let i=0;i<60&&!event;i++)await new Promise(r=>setTimeout(r,250));assert(event,'Realtime update not received');
- const final=await rows();
- for(const prev of after){const next=final.find(r=>r.task_id===prev.task_id);assert.deepEqual(next.owners,prev.owners);assert.equal(next.status,prev.status)}
- await run('db.removeAllChannels()');
- const second=page();Object.assign(second.w,{fetch,Headers,Request,Response,WebSocket,AbortController,TextEncoder,TextDecoder});second.w.MEM_CONFIG=cfg;second.w.eval(sdkCode);
- await second.run('initDatabase()');assert.equal(second.doc.querySelector('#errorBox').style.display,'none');
- assert.deepEqual(clone(second.run('allSteps().map(s=>({id:s.id,owners:s.owners,status:s.status}))')),clone(run('allSteps().map(s=>({id:s.id,owners:s.owners,status:s.status}))')));
- await second.run('db.removeAllChannels()');second.dom.window.close();
- console.log('PASS: live conditional migrations, authorized modernization completion, other statuses/owners preserved, write/read/realtime, second-page refresh.');
- console.log(JSON.stringify(clone(run('allSteps().map(s=>({id:s.id,owners:s.owners,status:s.status,date:s.date}))')),null,2));p.dom.window.close();
+ // Read-only verification: do not run retired migrations or test writes against shared data.
+ const p=page();p.w.eval(fs.readFileSync('config.js','utf8'));const cfg=p.w.MEM_CONFIG;
+ const r=await fetch(cfg.SUPABASE_URL+'/rest/v1/task_state?select=task_id,owners,status,updated_at',{headers:{apikey:cfg.SUPABASE_KEY}});
+ assert(r.ok,'task_state read failed: '+r.status);const rows=await r.json();
+ fs.writeFileSync('.verification/task_state-readonly.json',JSON.stringify(rows,null,2));
+ assert.equal(new Set(rows.map(r=>r.task_id)).size,rows.length);
+ console.log('PASS: read-only task_state snapshot; no migrations or writes performed.');p.dom.window.close();
 }
 
 async function completionTests(){
@@ -219,4 +191,29 @@ async function completionTests(){
  console.log('PASS: completion migration keeps owners/other courses/history; CAS race, failure and once-only marker.');
 }
 
-offline().then(completionTests).then(noticeTests).then(()=>process.argv.includes('--live')?live():null).then(()=>process.exit(0)).catch(e=>{console.error(e);process.exit(1)});
+async function preservationTests(){
+ const p=page(),{run,w,doc}=p;
+ const all=clone(run('stateItems()'));
+ const original=all.map((s,i)=>({task_id:s.id,owners:['王玺'],status:i%2?'待汇总':'已完成',updated_at:'user-edit'}));
+ original.push({task_id:'m2',owners:['廖璇'],status:'进行中',updated_at:'historic'});
+ const missingIds=['e_final_paper_20261121','ec_feasibility_20261121'];
+ const initial=original.filter(r=>!missingIds.includes(r.task_id));
+ const {db,state}=mockDb(initial);w.testDb=db;w.MEM_CONFIG={SUPABASE_URL:'https://example.test',SUPABASE_KEY:'test'};w.supabase={createClient:()=>db};
+ await run('initDatabase()');
+ for(const row of initial)assert.deepEqual(state.rows.find(r=>r.task_id===row.task_id),row);
+ assert(!state.rows.some(r=>r.task_id.startsWith('__migration')));
+ for(const id of missingIds){assert.equal(state.rows.find(r=>r.task_id===id).status,'未开始');assert.deepEqual(state.rows.find(r=>r.task_id===id).owners,['待分配']);}
+ const writes=state.writes;await run('initDatabase()');assert.equal(state.writes,writes);
+ assert.equal(new Set(state.rows.map(r=>r.task_id)).size,state.rows.length);
+ assert.equal(doc.querySelectorAll('.submission-check').length,6);
+ const essay=doc.querySelector('[data-step-id="m_essay_500_20261106"]');assert(essay);assert.equal(essay.closest('details'),null);
+ assert.equal(doc.querySelectorAll('.group-note a').length,3);
+ run('now.setTime(new Date("2026-11-01T00:00:00").getTime())');
+ assert.equal(run('deadlineClass({...findStep("ec1"),status:"未开始"})'),'later');
+ const oldRows=clone(state.rows);await run('migrateModernizationCompletion()');
+ for(const id of ['m_essay_500_20261106',...missingIds])assert.deepEqual(state.rows.find(r=>r.task_id===id),oldRows.find(r=>r.task_id===id));
+ p.dom.window.close();
+ console.log('PASS: initialization preserves all existing states/owners/history without migration markers; new nodes insert once; essay visible and excluded from old completion migration; historical dates do not imply overdue.');
+}
+
+offline().then(preservationTests).then(completionTests).then(noticeTests).then(()=>process.argv.includes('--live')?live():null).then(()=>process.exit(0)).catch(e=>{console.error(e);process.exit(1)});

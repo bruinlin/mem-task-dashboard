@@ -112,12 +112,13 @@
   </section>
 
   <section class="panel timeline-panel">
-    <div class="panel-head"><div><div class="panel-title">时间轴 · 关键节点</div><div class="panel-sub">9/22 → 10/24，一眼看清近期课程节奏</div></div></div>
+    <div class="panel-head"><div><div class="panel-title">时间轴 · 关键节点</div><div class="panel-sub">11/1 → 11/21，当前 3 项作业 · 4 个提交节点</div></div></div>
     <div class="timeline-wrap"><div class="timeline">
       <div class="timeline-header"><div></div><div class="timeline-dates" id="timelineDates"></div></div>
-      <div class="timeline-row"><div class="lane-label"><strong>工程导论 · 第一批作业</strong><span>第 1–4 讲在线问题 + 案例分析</span></div><div class="lane" id="laneEngineering"></div></div>
-      <div class="timeline-row"><div class="lane-label"><strong>工程经济学 · 手写作业</strong><span>5 个习题 + 3 个案例，上课时交</span></div><div class="lane" id="laneEconomics"></div></div>
-      <div class="timeline-note">● 圆点代表关键 DDL / 里程碑；长条代表持续推进阶段。</div>
+      <div class="timeline-row"><div class="lane-label"><strong>中国式现代化 · 500 字小作文</strong><span>11月6号前 · 电子档交路红艳</span></div><div class="lane" id="laneModernization"></div></div>
+      <div class="timeline-row"><div class="lane-label"><strong>工程导论 · 小组大作业</strong><span>11/8 电子版 · 11/21 上课纸质版</span></div><div class="lane" id="laneEngineering"></div></div>
+      <div class="timeline-row"><div class="lane-label"><strong>工程经济学 · 小组可研</strong><span>11/21 上课交电子及打印版</span></div><div class="lane" id="laneEconomics"></div></div>
+      <div class="timeline-note">● 圆点代表提交节点；“11月6号前”沿用通知原文，不另设具体时刻。历史节点保留在任务明细。</div>
     </div></div>
   </section>
 
@@ -145,23 +146,30 @@ const ownerOptions=["待分配","全员",...members];
 const statusOptions=["未开始","进行中","待汇总","已完成"];
 
 const taskGroups=[
- {course:"中国式现代化的理论与实践",assignment:"作业一",title:"社会现象评论",finalDDLText:"10 / 01",note:"主线团队：周圣昌 · 廖璇 · 高森林。9/30 完成 PPT 终版，10/1 起按可直接课堂使用状态管理。",steps:[
+ {historical:true,archived:true,course:"中国式现代化的理论与实践",assignment:"作业一",title:"社会现象评论",finalDDLText:"10 / 01",note:"主线团队：周圣昌 · 廖璇 · 高森林。9/30 完成 PPT 终版，10/1 起按可直接课堂使用状态管理。",steps:[
   {id:"m1",title:"选题提案并投票定题",output:"每人提出 1 个社会现象选题并附简要理由，全组完成讨论 / 投票，当天确定最终选题。",owners:["全员"],date:"2026-09-22",dateText:"09 / 22",status:"已完成"},
   {id:"m4",title:"收集资料",output:"围绕最终选题整理可直接用于作业的新闻、数据、案例、政策 / 学术资料，并保留可靠出处。",owners:["廖璇"],date:"2026-09-24",dateText:"09 / 24",status:"已完成"},
   {id:"m5",title:"内容分析与逻辑整理",output:"基于已有资料形成完整内容框架，明确核心观点、论据和案例之间的逻辑关系，为 PPT 制作提供可直接使用的内容。",owners:["高森林"],date:"2026-09-27",dateText:"09 / 27",status:"已完成"},
   {id:"m6",title:"PPT 初版",output:"根据确定的内容框架完成完整 PPT 初版，包括页面结构、主要文字、核心数据 / 案例和整体叙事逻辑。",owners:["周圣昌"],date:"2026-09-29",dateText:"09 / 29",status:"已完成"},
   {id:"m8",title:"PPT 终版",output:"完成 PPT 最终修改，检查事实、数据、逻辑、文字、视觉和 10–15 分钟展示时长，形成可直接用于课堂展示的终版。",owners:["周圣昌","廖璇","高森林"],date:"2026-09-30",dateText:"09 / 30",status:"已完成"}]},
- {course:"中国式现代化的理论与实践",assignment:"作业二",title:"开放式讨论",finalDDLText:"10 / 03",note:"题目：产学研如何深度融合。主线团队：钟润超 · 王玺 · 史圣田。框架与方向已敲定，全员补充观点与案例，主线团队负责汇总、展示材料和最终准备。",steps:[
+ {historical:true,archived:true,course:"中国式现代化的理论与实践",assignment:"作业二",title:"开放式讨论",finalDDLText:"10 / 03",note:"题目：产学研如何深度融合。主线团队：钟润超 · 王玺 · 史圣田。框架与方向已敲定，全员补充观点与案例，主线团队负责汇总、展示材料和最终准备。",steps:[
   {id:"d1",title:"框架与方向敲定",output:"完成开放式讨论的整体方向、主要观点范围和内容框架确认，明确后续资料和展示材料的制作方向。",owners:["钟润超","王玺","史圣田"],date:"2026-09-22",dateText:"09 / 22",status:"已完成"},
   {id:"d1b",title:"观点与案例补充",output:"根据 9/22 已确定的框架，每人补充可用观点、案例、数据或现实问题，为后续汇总提供内容。",owners:["全员"],date:"2026-09-24",dateText:"09 / 24",status:"已完成"},
   {id:"d2",title:"观点汇总与内容整理",output:"汇总全员观点，合并重复内容，确定约 20 分钟开放式讨论的完整逻辑结构、主要观点及各部分顺序。",owners:["钟润超"],date:"2026-09-27",dateText:"09 / 27",status:"已完成"},
   {id:"d3",title:"展示材料初版",output:"根据最终讨论结构完成课堂展示材料初版，包括 PPT / 视觉材料 / 案例呈现等，并保证内容可以支撑约 20 分钟陈述。",owners:["王玺","史圣田"],date:"2026-09-30",dateText:"09 / 30",status:"已完成"},
   {id:"d4",title:"最后准备",output:"完成展示材料最终检查、发言分配、表达顺序和时间控制，确保 10/3 可以直接用于课堂开放式讨论。",owners:["钟润超","王玺","史圣田"],date:"2026-10-02",dateText:"10 / 02",status:"已完成"}]},
- {course:"工程管理导论",assignment:"第一批作业",title:"第 1–4 讲在线问题 + 案例分析",finalDDLText:"10 / 11 当周",note:"第 1–4 讲合并为第一批作业；每个人都要完成个人内容。",steps:[
+ {historical:true,course:"工程管理导论",assignment:"第一批作业",title:"第 1–4 讲在线问题 + 案例分析",finalDDLText:"10 / 11 当周",note:"第 1–4 讲合并为第一批作业；每个人都要完成个人内容。",steps:[
   {id:"e1",title:"完成第一批个人作业",output:"一次性完成第 1–4 讲全部在线问题与案例分析，形成可直接用于后续小组汇总的完整个人材料。",owners:["全员"],date:"2026-10-11",dateText:"10 / 11 当周",status:"未开始"},
   {id:"e2",title:"个人材料统一提交",output:"六名组员提交完整第一批材料，由周圣昌统一收集、检查和归档。",owners:["周圣昌"],date:"2026-10-11",dateText:"10 / 11 当周",status:"未开始"}]},
- {course:"工程经济学",assignment:"个人作业",title:"5 个习题 + 3 个案例（手写）",finalDDLText:"10 / 24 上课时",note:"每人用手写纸完成；表格框可提前打印，数字须手写。2026 年 10 月 24 日上课时交，左上角写班级、学号和姓名，并按题目顺序装订。具体题目按原附件《工程经济学作业10月24号上课时交(最新).pdf》。",steps:[
-  {id:"ec1",title:"完成并提交手写作业",output:"习题：第一题、第二题、第四题（P63 T8）、第五题（P64 T17）、第六题（P85 T13）。案例：投资估算案例分析、财务基础数据估算案例分析、财务分析案例。按附件完成以上 5 个习题 + 3 个案例，检查手写数字、左上角班级 / 学号 / 姓名及装订顺序，上课时提交。",owners:["全员"],date:"2026-10-24",dateText:"10 / 24 上课时",status:"未开始"}]}
+ {historical:true,course:"工程经济学",assignment:"个人作业",title:"5 个习题 + 3 个案例（手写）",finalDDLText:"10 / 24 上课时",note:"历史作业：Notion 完成记录及日记确认 10/24 已提交；保留共享勾选和负责人。每人用手写纸完成；表格框可提前打印，数字须手写。2026 年 10 月 24 日上课时交，左上角写班级、学号和姓名，并按题目顺序装订。具体题目按原附件《工程经济学作业10月24号上课时交(最新).pdf》。",steps:[
+  {id:"ec1",title:"完成并提交手写作业",output:"习题：第一题、第二题、第四题（P63 T8）、第五题（P64 T17）、第六题（P85 T13）。案例：投资估算案例分析、财务基础数据估算案例分析、财务分析案例。按附件完成以上 5 个习题 + 3 个案例，检查手写数字、左上角班级 / 学号 / 姓名及装订顺序，上课时提交。",owners:["全员"],date:"2026-10-24",dateText:"10 / 24 上课时",status:"未开始"}]},
+ {course:"中国式现代化的理论与实践",assignment:"500 字小作文",title:"中国式现代化或学习体会（约 500 字）",finalDDLText:"11 月 6 号前",source:"https://app.notion.com/p/40b9bac5f6728169b5bbc6ea8a7ab89b",note:"邱雨老师要求国庆参加考试的同学完成，属于成绩组成；主题为中国式现代化或学习体会，积极向上，格式不限。此为独立新作业，与此前 1500 字作业不同。",steps:[
+  {id:"m_essay_500_20261106",title:"提交 500 字小作文电子档",output:"最晚于 2026 年 11 月 6 号前发路红艳；文件名：深圳班-S611X-姓名-学号。",owners:["待分配"],date:"2026-11-06",dateText:"11 月 6 号前",status:"未开始"}]},
+ {course:"工程管理导论",assignment:"小组大作业",title:"在线问题 + 案例分析 + 扩展（不少于 10000 字）",finalDDLText:"11 / 08 电子版<br>11 / 21 纸质版",source:"https://app.notion.com/p/3f29bac5f6728130bf1ef94597854c85",note:"在线 28 点不少于 4000 字、7 个案例不少于 4000 字、扩展不少于 2000 字，总计不少于 10000 字。第一批材料提交情况不代表最终交稿完成。",steps:[
+  {id:"e_final_electronic_20261108",title:"提交小组大作业电子版",output:"11 月 8 日交电子版给通知发布人伊娃；按完整大作业字数与内容要求提交。",owners:["待分配"],date:"2026-11-08",dateText:"11 / 08",status:"未开始"},
+  {id:"e_final_paper_20261121",title:"提交小组大作业纸质版",output:"11 月 21 日上课时交纸质版；与电子版提交节点分别记录。",owners:["待分配"],date:"2026-11-21",dateText:"11 / 21 上课时",status:"未开始"}]},
+ {course:"工程经济学",assignment:"小组可研大作业",title:"可行性研究报告（至少 30 页）",finalDDLText:"11 / 21 上课时",source:"https://app.notion.com/p/3f29bac5f67281e4b264f3002942e746",note:"课程已结课，仍有本项独立待交作业。报告至少 30 页，小四宋体、一倍行距、A4，包含分工说明及首页签名。",steps:[
+  {id:"ec_feasibility_20261121",title:"提交可研报告电子及打印版",output:"11 月 21 日上课时同时提交电子版和打印版；检查页数、排版、分工说明及首页签名。",owners:["待分配"],date:"2026-11-21",dateText:"11 / 21 上课时",status:"未开始"}]}
 ];
 
 const engineeringSubmissions=[
@@ -220,7 +228,7 @@ async function migrateModernizationCompletion(){
  const {data:rows,error:readError}=await db.from("task_state").select("task_id,owners,status,updated_at");
  if(readError)throw readError;
  if(rows.some(r=>r.task_id===modernizationCompletionId))return;
- const ids=new Set([...taskGroups.filter(g=>g.course===modernizationCourse).flatMap(g=>g.steps.map(s=>s.id)),"m2","m3","m7"]);
+ const ids=new Set(["m1","m2","m3","m4","m5","m6","m7","m8","d1","d1b","d2","d3","d4"]);
  for(const row of rows){
   if(!ids.has(row.task_id)||row.status==="已完成")continue;
   const {data:changed,error}=await db.from("task_state").update({status:"已完成",updated_at:new Date().toISOString()})
@@ -246,6 +254,7 @@ const courses=["全部",...new Set(taskGroups.map(g=>g.course))];
 document.getElementById("filters").innerHTML=courses.map((c,i)=>`<button class="filter-btn ${i===0?"active":""}" data-course="${c}">${c==="中国式现代化的理论与实践"?"中国式现代化":c}</button>`).join("");
 
 function allSteps(){return taskGroups.flatMap(g=>g.steps)}
+function isHistorical(step){return taskGroups.some(g=>g.historical&&g.steps.some(s=>s.id===step.id))}
 function findStep(id){return allSteps().find(s=>s.id===id)}
 function stateItems(){return [...allSteps(),...engineeringSubmissions]}
 function findStateItem(id){return stateItems().find(s=>s.id===id)}
@@ -258,6 +267,7 @@ function ownerText(v){return ownerOptions.filter(o=>(v||[]).includes(o)).join(" 
 function statusClass(v){return {"未开始":"todo","进行中":"doing","待汇总":"waiting","已完成":"done"}[v]||"todo"}
 function deadlineClass(step){
  if(step.status==="已完成")return "done";
+ if(isHistorical(step))return "later";
  const days=Math.round((new Date(step.date+"T00:00:00")-now)/86400000);
  return days<0?"overdue":days<=3?"soon":"later";
 }
@@ -268,7 +278,7 @@ function updateSummary(){
  document.getElementById("statSteps").textContent=steps.length;
  document.getElementById("statDoing").textContent=steps.filter(s=>s.status==="进行中").length;
  document.getElementById("statDone").textContent=steps.filter(s=>s.status==="已完成").length;
- const upcoming=taskGroups.flatMap(g=>g.steps.map(s=>({...s,courseLabel:(g.course==="中国式现代化的理论与实践"?"中国式现代化":g.course)+" · "+g.assignment}))).filter(s=>s.status!=="已完成").map(s=>({...s,d:new Date(`${s.date}T00:00:00`)})).sort((a,b)=>a.d-b.d);
+ const upcoming=taskGroups.filter(g=>!g.historical).flatMap(g=>g.steps.map(s=>({...s,courseLabel:(g.course==="中国式现代化的理论与实践"?"中国式现代化":g.course)+" · "+g.assignment}))).filter(s=>s.status!=="已完成").map(s=>({...s,d:new Date(`${s.date}T00:00:00`)})).sort((a,b)=>a.d-b.d);
  const n=upcoming[0];
  document.getElementById("nextCard").innerHTML=n?`<div class="kicker">${n.d<now?"OVERDUE · 逾期待处理":"NEXT MILESTONE"}</div><div class="name">${n.title}</div><div class="date">${n.dateText}</div><div class="course">《${n.courseLabel}》</div>`:`<div class="kicker">NEXT MILESTONE</div><div class="name">暂无待处理节点</div><div class="course">当前任务已处理完成</div>`;
 }
@@ -278,23 +288,25 @@ function renderGroups(){
  const groups=taskGroups.filter(g=>activeCourse==="全部"||g.course===activeCourse);
  document.getElementById("groupList").innerHTML=[...new Set(groups.map(g=>g.course))].map(course=>{
   const courseGroups=groups.filter(g=>g.course===course);
-  const body=courseGroups.map(group=>{
+  const renderGroup=group=>{
   const done=group.steps.filter(s=>s.status==="已完成").length, progress=Math.round(done/group.steps.length*100);
-  return `<article class="task-group"><div class="group-header"><div><div class="assignment-kicker">${group.assignment}</div><h2 class="group-title">${group.title}</h2><div class="group-note">${group.note}</div></div><div class="group-ddl"><div class="label">FINAL DDL</div><strong>${group.finalDDLText}</strong></div></div>
+  return `<article class="task-group"><div class="group-header"><div><div class="assignment-kicker">${group.assignment}</div><h2 class="group-title">${group.title}</h2><div class="group-note">${group.note}${group.source?` <a href="${group.source}" target="_blank" rel="noopener noreferrer">查看作业通知</a>`:""}${group.historical?" · 历史记录（状态以共享勾选为准）":""}</div></div><div class="group-ddl"><div class="label">FINAL DDL</div><strong>${group.finalDDLText}</strong></div></div>
   <div class="progress-wrap"><div class="progress-meta"><span>整体进度</span><span>${done} / ${group.steps.length}</span></div><div class="progress-track"><div class="progress-bar" style="width:${progress}%"></div></div></div>
-  ${group.course==="工程管理导论"?renderSubmissions():""}
+  ${group.steps.some(s=>s.id==="e1")?renderSubmissions():""}
   <div class="steps">${group.steps.map((s,i)=>`<div class="step ${s.status==="已完成"?"done":""}" data-step-id="${s.id}">
    <div class="step-index">${String(i+1).padStart(2,"0")}</div><div><div class="step-title">${s.title}</div><div class="step-output">${s.output}</div></div>
    <div class="owner-picker"><div class="control-label">负责人</div><button class="owner-button" ${databaseReady?"":"disabled"}>${ownerText(s.owners)}</button><div class="owner-menu">
     ${ownerOptions.map(o=>`<label class="owner-option"><input type="checkbox" value="${o}" ${s.owners.includes(o)?"checked":""}><span>${o}</span></label>`).join("")}
     <div class="owner-actions"><button class="owner-close" type="button">完成</button></div></div></div>
    <div class="status-wrap"><div class="control-label">任务状态</div><select class="status-select ${statusClass(s.status)}" ${databaseReady?"":"disabled"}>${statusOptions.map(o=>`<option ${s.status===o?"selected":""}>${o}</option>`).join("")}</select></div>
-   <div class="step-date ${deadlineClass(s)}"><small>DDL${deadlineClass(s)==="overdue"?" · 已逾期":deadlineClass(s)==="soon"?" · 临近截止":""}</small><strong>${s.dateText}</strong></div>
+   <div class="step-date ${deadlineClass(s)}"><small>${isHistorical(s)?"历史节点":"DDL"}${deadlineClass(s)==="overdue"?" · 已逾期":deadlineClass(s)==="soon"?" · 临近截止":""}</small><strong>${s.dateText}</strong></div>
   </div>`).join("")}</div></article>`;
-  }).join("");
-  if(course===modernizationCourse){
-   const steps=courseGroups.flatMap(g=>g.steps), done=steps.filter(s=>s.status==="已完成").length;
-   return `<details class="course-archive" ${modernizationExpanded?"open":""}><summary class="course-section-title">${course}<span class="archive-status">${done===steps.length?"已完成":"完成 "+done+" / "+steps.length} · ${courseGroups.length} 项作业 · 点击展开</span></summary>${body}</details>`;
+  };
+  const active=courseGroups.filter(g=>!g.archived), archived=courseGroups.filter(g=>g.archived);
+  const body=active.map(renderGroup).join("");
+  if(archived.length){
+   const steps=archived.flatMap(g=>g.steps), done=steps.filter(s=>s.status==="已完成").length;
+   return `<div class="course-section-title">${course}</div>${body}<details class="course-archive" ${modernizationExpanded?"open":""}><summary class="course-section-title">历史作业<span class="archive-status">${done===steps.length?"已完成":"完成 "+done+" / "+steps.length} · ${archived.length} 项作业 · 点击展开</span></summary>${archived.map(renderGroup).join("")}</details>`;
   }
   return `<div class="course-section-title">${course}</div>${body}`;
  }).join("");
@@ -349,9 +361,7 @@ async function initDatabase(){
   const {data,error}=await db.from("task_state").select("task_id,owners,status,updated_at");
   if(error) throw error;
   const map=Object.fromEntries((data||[]).map(r=>[r.task_id,r]));
-  await migrateOwners(data||[]);
-  await migrateDiscussionMeeting();
-  await migrateModernizationCompletion();
+  // Historical migrations are retired: never reset existing owners or statuses on load.
   const missing=stateItems().filter(s=>!map[s.id]).map(s=>({task_id:s.id,owners:s.owners,status:s.status}));
   if(missing.length){
    const {error:seedErr}=await db.from("task_state").upsert(missing,{onConflict:"task_id",ignoreDuplicates:true});if(seedErr)throw seedErr;
@@ -376,7 +386,7 @@ async function initDatabase(){
 }
 
 // Timeline
-const start=new Date("2026-09-22T00:00:00"), end=new Date("2026-10-24T00:00:00"), totalDays=Math.round((end-start)/86400000)+1;
+const start=new Date("2026-11-01T00:00:00"), end=new Date("2026-11-21T00:00:00"), totalDays=Math.round((end-start)/86400000)+1;
 document.documentElement.style.setProperty("--timeline-days",totalDays);
 document.querySelector(".timeline").style.minWidth=Math.max(860,totalDays*38)+"px";
 let dates=[];for(let i=0;i<totalDays;i++){let d=new Date(start);d.setDate(start.getDate()+i);dates.push(`${d.getMonth()+1}/${d.getDate()}`)}
@@ -384,9 +394,10 @@ document.getElementById("timelineDates").innerHTML=dates.map(d=>`<div>${d}</div>
 function pct(ds){const d=new Date(ds+"T00:00:00");return((Math.round((d-start)/86400000)+.5)/totalDays)*100}
 function addBar(id,a,b,label,cls){const e=document.createElement("div");e.className="bar "+cls;e.style.left=pct(a)+"%";e.style.width=Math.max(3,pct(b)-pct(a))+"%";e.textContent=label;document.getElementById(id).appendChild(e)}
 function addM(id,d,cls,title){const e=document.createElement("div");e.className="milestone "+cls;e.style.left=pct(d)+"%";e.title=d+" · "+title;e.setAttribute("aria-label",e.title);document.getElementById(id).appendChild(e)}
-addBar("laneEngineering","2026-10-04","2026-10-11","第1–4讲第一批作业","green");addM("laneEngineering","2026-10-11","green","第一批作业 · 10/11 当周");
-
-addM("laneEconomics","2026-10-24","amber","手写作业：5 个习题 + 3 个案例，上课时交");
+addM("laneModernization","2026-11-06","purple","500 字小作文 · 2026 年 11 月 6 号前电子档发路红艳");
+addM("laneEngineering","2026-11-08","green","小组大作业电子版交伊娃");
+addM("laneEngineering","2026-11-21","green","小组大作业纸质版上课时交");
+addM("laneEconomics","2026-11-21","amber","小组可研报告电子及打印版，上课时交");
 
 renderGroups();updateSummary();initDatabase();
 </script>
